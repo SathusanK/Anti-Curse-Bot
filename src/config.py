@@ -1,5 +1,0 @@
-client_id = '7b2Y-ahJ_4LC5w'
-client_secret = 'OslDtS-tXfG9PMhkIjjBAMFMWEQ'
-username = 'minecraft_purity_bot'
-password = 'pokemon'
-user_agent = 'Christian Minecraft Bot'
