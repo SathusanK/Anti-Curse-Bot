@@ -1,5 +1,5 @@
 # Built-in libraries
-import time
+import time, pickle
 
 # External library for reddit use
 import praw
@@ -19,7 +19,7 @@ reddit = praw.Reddit(client_id = config.client_id,
 subreddit_name = 'all'
 subreddit = reddit.subreddit(subreddit_name)
 
-KEYWORDS = ['heck', 'frick']
+KEYWORDS = ['heck', 'frick', 'and']
 
 while True:
     srch(subreddit, KEYWORDS)
