@@ -9,9 +9,10 @@ import pickle
 # Personal scripts and files
 # import sinner
 
-def check(author, value_exists):
+# def check(author, value_exists):
+def check(author):
     '''
-    Iterates through all the sinners and adds them to the list if they do not exist.
+    Iterates through all the sinners and adds them to the text file list if they do not exist.
     
     Returns whether or not the sinner is a repeat offender (variable: value_exists)
     
@@ -20,19 +21,22 @@ def check(author, value_exists):
     sinner_list - array of sinners
     value_exists - boolean value of whether or not the sinner exists in the txt file
     '''
+    value_exists = False
     sinners = open('sinners.txt', "r+")
-                    
-    sinner_list = []
-    for line in sinners.readlines():
-        if line not in sinner_list:
-            sinner_list.append(line.strip())
-        
-    if str(author) not in sinner_list:
-        sinners.write(str(author) + '\n')
-        value_exists = True
-
-    sinners.close()
     
+    line = sinners.readline()
+    while line.strip() != '':
+        if str(author) in line:
+            value_exists = True
+            break
+        else:
+            line = sinners.readline()
+    
+    if value_exists == False:
+        sinners.write(str(author) + '\n')
+        
+    sinners.close()
+        
     return value_exists
 
 def update_count(author):
@@ -56,8 +60,6 @@ def srch(subreddit, KEYWORDS):
     author - string of the author's username
     '''
     
-    value_exists = False
-    
     for submission in subreddit.hot(limit=20):
         submission.comments.replace_more(limit=None)
         submission.comments_sort = 'hot'
@@ -70,15 +72,14 @@ def srch(subreddit, KEYWORDS):
             
             for word in split_comment:
                 if word in KEYWORDS:
-                    value_exists = check(author, value_exists)
-                    print(author)
-                    print(split_comment)
+                    value_exists = check(author)
+#                     print(author)
+#                     print(split_comment)
                     
-                    if value_exists == False:
+                    if value_exists == True:
                         continue
                     else:
 #                         update_count(comment.author) #function that checks the sin count
-                        
                         return
             
     return
