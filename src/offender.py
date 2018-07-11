@@ -1,10 +1,9 @@
-class Sinner:
+class Offender:
     
-    def __init__(self, post, name, keyword):
+    def __init__(self, name, count):
         self.name = name
         self.count = 0
-#         self.keyword = keyword
-#         self.post = post
+        return
 
     def set_name(self, name):
         self.name = name
@@ -23,18 +22,3 @@ class Sinner:
     def add_count(self):
         self.count += 1
         return
-    
-#     def set_post(self, post):
-#         self.post = post
-#         return
-#     
-#     def get_post(self):
-#         return self.post
-    
-#     def set_keyword(self, keyword):
-#         self.keyword = keyword
-#         return
-#     
-#     def get_keyword(self):
-#         return self.keyword
-    
