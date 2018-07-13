@@ -5,7 +5,7 @@ import pickle, os
 #External libraries for Reddit use
 
 # Personal scripts and files
-from offender import Offender
+from offender import Offender #Import Offender class
 
 # def check(author, user_exists):
 def check(author):
@@ -13,7 +13,7 @@ def check(author):
     Iterates through all the offenders and adds them to the offender list if not already in it.
     Does not add the offender if found before EOF.
     
-    Returns whether or not the offender is a repeat offender (variable: user_exists)
+    Returns whether or not the offender is a repeat offender (boolean; variable: user_exists)
     
     Variables:
     user_exists - boolean value of whether or not the offender exists in the list of offenders
@@ -31,7 +31,7 @@ def check(author):
     else:
         offenders = []
 
-    # Search for if the author is a repeat offendor
+    # Search for if the author is a repeat offender
     for offender in offenders:
         if offender.name == str(author):
             offender.count += 1
@@ -53,15 +53,44 @@ def check(author):
         
     return user_exists
 
-# def update_count(author):
-#     '''
-#     Updates the offense count of the author
-#     **IMPORTANT** In this context, the author variable is an object
-#     
-#     Variables:
-#     author - author object from Reddit API
-#     '''
-#     return
+def check_comment(new_id):
+    '''
+    Determines whether or not a comment was previously replied to.
+    
+    Returns whether or not the comment already exists (boolean; variable: comment_exists).
+    
+    Variables:
+    new_id - comment id that was passed into the function to be checked
+    comment_exists - boolean value of whether or not the comment exists
+    comment_id_file - file containing a list of comment id's
+    comment_id_list - list of comment id's
+    comment_id - comment id from comment_id_list
+    
+    '''
+    comment_exists = False
+    comment_id_file = open('comment_ids', 'rb')
+    
+    # Check if the file is empty
+    if not os.stat('comment_ids').st_size == 0:
+        comment_id_list = pickle.load(comment_id_file)
+    else:
+        comment_id_list = []
+        
+    # Check if the comment id already exists
+    for comment_id in comment_id_list:
+        if comment_id == new_id:
+            comment_exists = True
+            break
+    
+    if comment_exists == False:
+        comment_id_list.append(new_id)
+    
+    comment_id_file.close()
+    comment_id_file = open('comment_ids', 'wb')
+    
+    pickle.dump(comment_id_list, comment_id_file)
+    
+    return comment_exists
 
 # def reply_gen(author):
 #     '''
@@ -95,21 +124,27 @@ def srch(subreddit, KEYWORDS):
         submission.comments_sort = 'hot'
         
         for comment in submission.comments.list():
+            
+#             comment_exists = check_comment(comment.id)
+#             
+#             if comment_exists:
+#                 break
+            
             author = comment.author
             split_comment = comment.body.lower().split(' ')
             
             for word in split_comment:
                 
                 if word in KEYWORDS:
-                    print(str(author))
-                    print(split_comment)
+#                     print(str(author))
+#                     print(split_comment)
+#                     print(comment.id)
                     
                     user_exists = check(author)
                     
                     if user_exists == True:
-                        continue
+                        pass
                     else:
-#                         update_count(comment.author) #function that checks the sin count
 #                         reply = reply_gen(comment.author) #function that replies to the author
                         return
             
