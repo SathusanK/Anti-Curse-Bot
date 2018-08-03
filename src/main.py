@@ -19,7 +19,7 @@ reddit = praw.Reddit(client_id = config.client_id,
 subreddit_name = 'all'
 subreddit = reddit.subreddit(subreddit_name)
 
-KEYWORDS = ['heck', 'frick', 'and'] #Temporarily added "and" to speed up testing
+KEYWORDS = ['heck', 'frick', 'darn', 'and'] #Temporarily added "and" to speed up testing
 
 while True:
     srch(subreddit, KEYWORDS)
