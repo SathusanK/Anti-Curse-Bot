@@ -1,8 +1,8 @@
 class Offender:
     
-    def __init__(self, name, count):
+    def __init__(self, name):
         self.name = name
-        self.count = 0
+        self.count = 1
         return
 
     def set_name(self, name):
