@@ -1,4 +1,4 @@
-# SaintRedditBot (will come up with a better name later)
+# Anti-Swear Bot
 Parses reddit comments for light profanity and replies with a message reminding the user to watch their language. The comment will also provide a count of repeat offenses.
 
 # Prerequisites
